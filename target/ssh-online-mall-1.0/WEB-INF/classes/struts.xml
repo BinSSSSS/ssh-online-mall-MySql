@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+    "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+
+	<!--该配置会覆盖 default.properties 中的值 。
+	 	default.properties 在 struts-core.jar-> org.apache->struts2 下。 -->
+	<constant name="struts.convention.package.locators"
+		value="controller" />
+
+	<!-- 开启动态方法映射。 可以在action中使用通配符。 -->
+	<constant name="struts.enable.DynamicMethodInvocation"
+		value="true" />
+
+
+	<!-- 用于声明一个可访问的路径包， name 为 该包名， extends 表示继承自哪个类。 而 namespace 则是访问的路径， 相当于在 
+		web.xml中配置的 url-pattern -->
+	<package name="strutsDemo" extends="struts-default"
+		namespace="/">
+
+		<!-- 异常处理 -->
+		<!-- 全局的结果处理。当出现指定的结果则跳转到页面中 -->
+		<global-results>
+			<result name="error">/error.jsp</result>
+			<result name="not_found">/not_found.jsp</result>
+		</global-results>
+
+		<!-- 开启全局的可允许的方法， 在通配符之中使用 -->
+		<!--  使用  regex:.* 可以匹配任何方法 -->
+		<global-allowed-methods>insert, update, delete,query</global-allowed-methods>
+
+		<!-- 全局的捕获异常，配置发生未捕获异常时返回的结果 -->
+		<global-exception-mappings>
+			<exception-mapping result="not_found"
+				exception="cn.tblack.exception.NotFoundException" />
+			<exception-mapping result="error"
+				exception="java.lang.Exception" />
+		</global-exception-mappings>
+
+
+		<!-- 每一个action 都表示了一个访问的url链接。 name 属性就是 访问的 具体路径。
+		 class 则是处理该请求的类， method则是具体的方法来进行处理 -->
+		<action name="table" class="cn.tblack.action.WebAction"
+			method="table">
+			<!-- 在一个 result 对象中，通过根据 method 的返回值可以返回不一样的视图。 
+			1. 无name 属性， 则表示该方法为void返回值， 每次执行完毕进行跳转。 
+			2. 根据name属性， 来进行不同视图的跳转。 
+			3.type 属性表示需要做转发还是重定向的操作， 默认为转发。 
+				redirect 为重定向， chain 为 转发到其他 action 对象中， redirectAction 为重定向到其他 action -->
+			<result>/index</result>
+			<result name="list">/list.jsp</result>
+			<result name="table">/table.jsp</result>
+		</action>
+
+		<!-- 使用通配符来进行 方法的映射 -->
+		<action name="*User" class="cn.tblack.action.UserAction"
+			method="{1}">
+
+			<result name="success" >/list.jsp</result>
+		</action>
+
+		<action name="index">
+			<result>/index.jsp</result>
+		</action>
+
+		<action name="hello" class="cn.tblack.action.MessageAction"
+			method="execute">
+			<result name="success">/message.jsp</result>
+		</action>
+
+		<action name="register" class="cn.tblack.action.RegisterAction"
+			method="execute">
+			<result name="success">/home.jsp</result>
+			<result name="input">/register.jsp</result>
+		</action>
+
+
+	</package>
+
+</struts>

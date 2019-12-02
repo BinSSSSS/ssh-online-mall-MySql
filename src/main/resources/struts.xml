@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+    "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+
+	<!--该配置会覆盖 default.properties 中的值 。 default.properties 在 struts-core.jar-> 
+		org.apache->struts2 下。 -->
+	<constant name="struts.convention.package.locators"
+		value="controller" />
+
+	<!-- 开启动态方法映射。 可以在action中使用通配符。 -->
+	<constant name="struts.enable.DynamicMethodInvocation"
+		value="true" />
+
+
+	<!-- 用于声明一个可访问的路径包， name 为 该包名， extends 表示继承自哪个类。 而 namespace 则是访问的路径， 相当于在 
+		web.xml中配置的 url-pattern -->
+	<package name="OnlineMall" extends="struts-default"
+		namespace="/">
+
+		<action name="item-list"
+			class="cn.tblack.mall.action.WebAction" method="itemList">
+			<result name="list">/WEB-INF/jsp/item-list.jsp</result>
+		</action>
+
+
+		<action name="user-cart"
+			class="cn.tblack.mall.action.WebAction" method="userCart">
+			<result name="cart">/WEB-INF/jsp/user-cart.jsp</result>
+		</action>
+
+		<action name="index" class="cn.tblack.mall.action.WebAction"
+			method="home">
+			<result name="home">/WEB-INF/jsp/mall.jsp</result>
+		</action>
+		
+		<action name="home" class="cn.tblack.mall.action.WebAction"
+			method="home">
+			<result name="home">/WEB-INF/jsp/mall.jsp</result>
+		</action>
+		
+		<action name="signIn" class="cn.tblack.mall.action.WebAction" method="signIn">
+		</action>
+		
+		<action name="logout" class="cn.tblack.mall.action.WebAction" method="logout">
+			
+		</action>
+		
+		<action name="add-cart" class="cn.tblack.mall.action.CartAction" method="addItem">
+		
+		</action>
+		
+		<action name="del-cart" class="cn.tblack.mall.action.CartAction" method="deleteCart"></action>
+	</package>
+
+</struts>

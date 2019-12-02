@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+
+<!-- This mapping demonstrates content-based discrimination for the table-per-hierarchy 
+	mapping strategy, using a formula discriminator. -->
+
+<hibernate-mapping package="cn.tblack.mall.domain">
+
+	<!-- name 为 类名， table 为表名 -->
+	<class name="MallUser" table="mall_user">
+
+		<!-- 主键映射， name 为属性名， column 为列名 -->
+		<id name="id" column="id" />
+		
+		<!-- 非主键映射， 属性和列名一一对应 -->
+		<property name="username" column="USERNAME" />
+		<property name="password" column="password" />
+	</class>
+
+</hibernate-mapping>

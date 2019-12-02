@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd">
+
+
+	<context:component-scan
+		base-package="cn.tblack.mall.dao" />
+	<context:component-scan
+		base-package="cn.tblack.mall.action" />
+	<context:component-scan
+		base-package="cn.tblack.mall.service" />
+
+	<context:property-placeholder
+		location="classpath:db.properties" />
+
+	<!-- 配置 阿里巴巴的 DruidDataSource 作为数据源 -->
+	<bean id="dataSource"
+		class="com.alibaba.druid.pool.DruidDataSource">
+		<property name="url" value="${oracle.url}" />
+		<property name="driverClassName" value="${oracle.driver}" />
+		<property name="username" value="${oracle.username}" />
+		<property name="password" value="${oracle.password}" />
+		<property name="initialSize" value="${druid.initialSize}" />
+		<property name="maxActive" value="${druid.maxActive}" />
+		<property name="maxWait" value="${druid.maxWait}" />
+		<property name="minIdle" value="${druid.minIdle}" />
+		<property name="filters" value="${druid.filters}" />
+	</bean>
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate5.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="hibernateProperties">
+			<props>
+				<!-- 输出SQL语句到控制台 -->
+				<prop key="hibernate.show_sql">true</prop>
+			</props>
+		</property>
+		<!--扫描该包下的所有实体类 -->
+		<property name="packagesToScan">
+			<list>
+				<value>cn/tblack/mall/domain</value>
+			</list>
+		</property>
+	</bean>
+
+
+</beans>

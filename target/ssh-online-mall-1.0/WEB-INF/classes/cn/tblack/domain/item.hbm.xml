@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!--在domain包下 -->
+<hibernate-mapping package="cn.tblack.mall.domain">
+
+	<!--类名为User，表名也为User -->
+	<class name="Item" table="item">
+
+		<!--主键映射，属性名为id，列名也为id -->
+		<id name="item_id" column="itemId" />
+
+		<!--非主键映射，属性和列名一一对应 -->
+		<property name="item_name" column="itemName" />
+		<property name="item_type" column="itemType" />
+		<property name="original_price" column="originalPrice" />
+		<property name="parsent_price" column="parsentPrice" />
+		<property name="discount" column="discount" />
+		<property name="publish_time" column="publishTime" />
+	</class>
+</hibernate-mapping>
